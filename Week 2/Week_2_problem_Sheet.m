@@ -9,7 +9,9 @@ alpha = alphamatrix(M, B, P, x_seq);
 beta=betamatrix(M, B, P, x_seq);
 gamma=gammamatrix(alpha, beta); 
 
-
+%- need to implement the Viterbi algorithm next (as a function)
+%- need to then complete the first question in the coursework using similar
+%functions
 
 
 
