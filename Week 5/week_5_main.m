@@ -1,6 +1,18 @@
 expertsPredictions = [0 1 0 1; 1 1 1 0; 0 1 0 0];
 outcomes = [0 1 1 0];
-beta =0.5;
+beta =0.75;
 
-question_1_ans = weighted_majority(expertsPredictions, outcomes, beta);
+predictions = weighted_majority(expertsPredictions, outcomes, beta);
+%can calculate experts' loss and our loss on every trial
+expertLoss = abs(expertsPredictions-repmat(outcomes,N,1));%subtracts 
+ourLoss = abs(predictions-outcomes);
+[N, T] = size(expertsPredictions);
 
+plot(1:T,cumsum(ourLoss))
+plot(1:T,cumsum(expertLoss(1,:)),1:T,cumsum(expertLoss(2,:)))%loss of Expert 1 amd expert two
+%plotted on one graph
+
+%Numerical Problems - Larger dataset
+expertsPredictions = floor(rand(4,10000)*2);
+outcomes = floor(rand(1,10000)*2);
+predictions = weighted_majority(expertsPredictions,outcomes,3/4);

@@ -1,40 +1,15 @@
 expertsPredictions = [0 1 0 1; 1 1 1 0; 0 1 0 0];
 outcomes = [0 1 1 0];
-beta =0.5;
+beta =0.75;
 
-%whats_predicted = weighted_majority(expertsPredictions,beta);
+predictions = weighted_majority(expertsPredictions, outcomes, beta);
+%can calculate experts' loss and our loss on every trial
+expertLoss = abs(expertsPredictions-repmat(outcomes,N,1));%subtracts 
+ourLoss = abs(predictions-outcomes);
 [N, T] = size(expertsPredictions);
-weights= ones(N,1);
-counter_0=0;
-counter_1=0;
-predictions =zeros(0,T);
 
-for t = 1: T
-    %calculate prediction gamma using current weights and expert predictions ...
-    for n = 1:N
-        if expertsPredictions(1,t)==0
-            counter_0=counter_0+weights(n);%
-        else 
-            counter_1=counter_1+weights(n);
-        end
-    end
-    
-    if counter_1 >= counter_0
-        predictions(t)=1;
-    else
-        predictions(t)=0;
-    end
-    counter_0=0;
-    counter_1=0;
-    %this adds our predictions to the array
-    %predictions(t) = [predictions gamma(t)];
-    
-    
-    for n = 1:N
-        if predictions(t) ~= expertsPredictions(t,n)
-            weights(n) = beta * weights(n);
-        end
-    end
-    
-end
-    
+plot(1:T,cumsum(ourLoss))
+plot(1:T,cumsum(expertLoss(1,:)),1:T,cumsum(expertLoss(2,:)))%loss of Expert 1 amd expert two
+%plotted on one graph
+
+%Numerical Problems - Larger dataset
