@@ -5,7 +5,7 @@ function [alpha] = alpha_dynamic(M, B, P, v)
     alpha =zeros(length_P,length_v);%initialize the alpha matrix to the correct size
     
     prob_v_given_s_j = zeros(length(P),length(P),length(v));%there are t: length p by width p matrix corresponding to t=1,t=2,...t=T
-%matrices that are diagonal such that matrix multipliction is possible 
+    %matrices that are diagonal such that matrix multipliction is possible 
 
     
     for t = 1:length(v)%outer loop over t for each iteration of the next rows of alpha calculated

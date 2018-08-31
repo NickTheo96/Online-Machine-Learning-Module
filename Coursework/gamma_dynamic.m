@@ -8,3 +8,4 @@ function [gamma] = gamma_dynamic(alpha, beta)
 end
 
 
+ 
