@@ -1,10 +1,23 @@
 function [alpha] = alpha_dynamic(M, B, P, v) 
-    length_v = length(v);
-    alpha =[0 0 0; 0 0 0];
+    length_v = length(v);%for some reason these lengths must be speficified before creating the emplty matrix
+    length_P = length(P);
     
-    alpha(:,1) = [B(1,v(1)) 0; 0 B(2,v(1))]*P;
-    for t = 2:3
-        alpha(:,t) =[B(1,v(t)) 0 ;0 B(2,v(t))] * M.' * alpha(:,t-1);
+    alpha =zeros(length_P,length_v);%initialize the alpha matrix to the correct size
+    
+    prob_v_given_s_j = zeros(length(P),length(P),length(v));%there are t: length p by width p matrix corresponding to t=1,t=2,...t=T
+%matrices that are diagonal such that matrix multipliction is possible 
+
+    
+    for t = 1:length(v)%outer loop over t for each iteration of the next rows of alpha
+        for j = 1:length(P)
+            prob_v_given_s_j(j,j,t)=B(j,v(t));
+        end
+    end
+
+    alpha(:,1) = prob_v_given_s_j(:,:,1)*P;
+
+    for t = 2:length(v)
+        alpha(:,t) =prob_v_given_s_j(:,:,t) * M.' * alpha(:,t-1);
     end
 end
 
