@@ -1,10 +1,21 @@
 function [gamma] = gamma_dynamic(alpha, beta) 
-    gamma =[0 0 0; 0 0 0];
-    for t = 1:3
-        for i = 1:2
-            gamma(i,t)=(alpha(i,t)*beta(i,t))/((alpha(1,t)*beta(1,t)+(alpha(2,t)*beta(2,t))));
+    [length_P,length_v] = size(alpha);
+    gamma =zeros(length_P,length_v);%initialize the matrix 
+    sum =zeros(length_v);
+
+    for t = 1:length_v
+        for i=1:length_P
+            
+            sum(t) = sum(t) + (alpha(i,t)*beta(i,t));
         end
     end
+    
+    for t = 1:length_v
+        for i = 1:length_P
+            gamma(i,t)=alpha(i,t)*beta(i,t)/sum(t);
+        end
+    end
+    
 end
 
 
