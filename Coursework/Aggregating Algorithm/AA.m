@@ -3,6 +3,7 @@ tennis_data(:,1) = data_matrix(:,4);
 tennis_data(:,2) = data_matrix(:,6);
 tennis_data(:,3) = data_matrix(:,8);
 tennis_data(:,4) = data_matrix(:,10);%create a new matrix of the 4 columns actually used
+tennis_data(:,5)= zeros(length_tennis_data,1);
 
 weights = [0.25,0.25,0.25,0.25];%initialise weights
 
@@ -30,14 +31,14 @@ for t = 1:length_tennis_data
     for n = 1:length(weights)
     g_0= g_0 + (p(n)) * exp(-ita*(tennis_data(t,n)^2));%calculate the summation in the g(0) and g(1)
     %equation fist
-    g_1= g_1 + (p(n)) * exp(-ita*(1-tennis_data(t,n)^2));
+    g_1= g_1 + (p(n)) * exp(-ita*(1-tennis_data(t,n))^2);
     end
     
     g_0=(-1/ita) * log(g_0);%calculate g(0) and g(1)
     g_1=(-1/ita) * log(g_1);
     
-    gamma(t)=0.5-((0.5)*(g_1-g_0));%calculate gamma for each iteration
-    
+    gamma(t)=0.5-(0.5*g_1)+(0.5*g_0);%calculate gamma for each iteration
+    tennis_data(t,5)=gamma(t);
     
     for n = 1:length(weights)
         weights(n)=weights(n)*exp((-ita*(1-tennis_data(t,n)^2)));%update the weights for the next iteration
@@ -46,6 +47,11 @@ for t = 1:length_tennis_data
     g_0=0;%set g(0) to zero so that this can be calculated each iteration
     g_1=0;
     sum_weights=0;%set sum of weight to zero so that they can be normalised correctly
-    
+end
+
+AA_total_loss =0;
+
+for t = 1:length_tennis_data
+    AA_total_loss = AA_total_loss + gamma(t);
 end
     
