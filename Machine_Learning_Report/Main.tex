@@ -1,0 +1,78 @@
+
+%\documentclass[twocolumn]{revtex4-1}
+\documentclass[10pt]{article}								% [Font size]{Type of document}
+
+% Non standard packages 
+\usepackage[textwidth=17cm,textheight=24cm]{geometry}			% See geometry.pdf to learn the layout options. There are lots.
+\geometry{a4paper}                      							% ... or a4paper or a5paper or ... 
+\usepackage{graphicx}									% Package for including graphics \usepackage{amsmath}
+\usepackage{braket}
+\usepackage{amssymb}
+\newcommand{\sn}[2]{\ensuremath{{#1}\times 10^{#2}}}
+% American Mathematical Society Symbols and fonts
+\usepackage{amsmath}
+\usepackage{lipsum}
+
+\DeclareMathOperator{\Tr}{Tr}
+\usepackage{epstopdf} % Conversion of eps to pdf files
+\usepackage{hyperref}% Hyper text links in document and to external URLs
+\usepackage{mathtools}
+\usepackage{siunitx}
+\usepackage{amsmath}
+
+\usepackage{caption}%split sub figure
+\usepackage{subcaption}
+\usepackage{graphicx}
+
+\usepackage{cite}%references as [1 - 3] rather than [1,2,3]
+
+\usepackage[tocindentauto]{tocstyle}%used so that the contents do not overlap
+\usetocstyle{KOMAlike}
+
+\linespread{1.0} % Single, Double, 1.5 line spacing, just put in the factor, here it is 1.5 times normal spacing
+
+%\usepackage[parfill]{parskip}                           %line after paragraph
+
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\renewcommand \thesection{\Roman{section}}
+\renewcommand\thesubsection{\Alph{subsection}.}
+\usepackage{sectsty}
+\sectionfont{\centering} %center section
+\subsectionfont{\centering}
+%\numberwithin{equation}{section} %equation named according to section
+
+\title{Machine Learning Algorithms Summary}
+\author{Nickolas Theodoulou}
+%\\
+%Supervisor: Dr Anna Posazhennikova}
+
+\begin{document}
+
+
+\maketitle
+
+\begin{abstract}
+
+A K-nearest-neighbour (Knn) algorithm was created in the R programming language successfully predicting 
+%give the results
+
+
+
+\end{abstract}
+
+
+\tableofcontents
+
+\clearpage
+\input{tex/Introduction} 
+\input{tex/forward_backward_algorithm}
+
+\clearpage
+\bibliography{bib.bib}
+\bibliographystyle{ieeetr}
+\clearpage
+
+\appendix
+
+\end{document}
